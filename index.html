@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información de Países</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Selecciona un destino</h1>
+        <select id="pais">
+            <option value="">-- Elige un país --</option>
+            <option value="argentina">Argentina</option>
+            <option value="mexico">México</option>
+            <option value="espana">España</option>
+            <option value="francia">Francia</option>
+            <option value="italia">Italia</option>
+            <!-- Agrega más países según necesites -->
+        </select>
+    </div>
+    <script>
+        function mostrarInformacion() {
+            const pais = document.getElementById('pais').value;
+            if (pais) {
+                // Redirige a la página de información del país
+                window.location.href = `informacion.html?pais=${pais}`;
+            }
+        }
+    </script>
+</body>
+</html>
