@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del País</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles_01.css">
+</head>
+<body class="country-background">
+    <div class="container">
+        <h1 id="nombre-pais"></h1>
+        <img id="bandera" src="" alt="Bandera" class="img-fluid" style="display: none;"> <!-- Ocultar la imagen si se usa como fondo -->
+        
+        <table class="table mt-4">
+            <tbody>
+                <tr>
+                    <td>Pais</td>
+                    <td id="pais"></td>
+                </tr>
+                <tr>
+                    <td>Capital</td>
+                    <td id="capital"></td>
+                </tr>
+                <tr>
+                    <td>Continente</td>
+                    <td id="continente"></td>
+                </tr>
+                <tr>
+                    <td>Moneda</td>
+                    <td id="moneda"></td>
+                </tr>
+                <tr>
+                    <td>Habitantes</td>
+                    <td id="habitantes"></td>
+                </tr>
+                <tr>
+                    <td>Latitud</td>
+                    <td id="latitud"></td>
+                </tr>
+                <tr>
+                    <td>Longitud</td>
+                    <td id="longitud"></td>
+                </tr>
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+
+        <div id="map" style="height: 400px;"></div>
+
+        <h2>Atracciones Turísticas</h2>
+        <ul id="atracciones"></ul>
+
+        <button onclick="window.history.back()" class="btn btn-secondary mt-3">Volver</button>
+    </div>
+
+    <script>
+        // Obtener el nombre del país de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pais = urlParams.get('nombre');
+        const apiKey = 'f8499b630a9d46dbd6416a0d32844d9c'; // Reemplaza con tu clave de API
+
+        const urlPais = `https://restcountries.com/v3.1/name/${pais}`;
+
+        fetch(urlPais)
+            .then(response => response.json())
+            .then(data => {
+                const info = data[0];
+                document.getElementById('nombre-pais').innerText = info.name.common;
+                document.getElementById('bandera').src = info.flags.svg;
+
+                // Establecer la imagen de fondo
+                document.body.style.backgroundImage = `url(${info.flags.svg})`;
+                
+                document.getElementById('pais').innerText = `${info.name}`;
+                document.getElementById('continente').innerText = `${info.region}`;
+                document.getElementById('capital').innerText = `${info.capital}`;
+                document.getElementById('moneda').innerText = `${info.currencies[Object.keys(info.currencies)[0]].name}`;
+                document.getElementById('habitantes').innerText = `${info.population}`;
+
+                // Inicializar mapa
+                initMap(info.latlng[0], info.latlng[1]);
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos del país:', error);
+            });
+
+        function initMap(lat, lng) {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat, lng: lng },
+                zoom: 5,
+            });
+            new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map,
+            });
+        }
+    </script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script> -->
+</body>
+</html>
