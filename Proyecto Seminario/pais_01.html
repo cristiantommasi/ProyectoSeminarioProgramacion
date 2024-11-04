@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del País</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles_01.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <style>
+        #map {
+            height: 400px; /* Asegúrate de que el mapa tenga una altura definida */
+            width: 100%;   /* Asegúrate de que ocupe todo el ancho del contenedor */
+        }
+    </style>
+</head>
+<body class="country-background">
+    <div class="container">
+        <h1 id="nombre-pais"></h1>
+        <img id="bandera" src="" alt="Bandera" class="img-fluid" style="display: none;"> <!-- Ocultar la imagen si se usa como fondo -->
+        
+        <table class="table mt-4">
+            <tbody>
+                <tr>
+                    <td>Pais</td>
+                    <td id="pais"></td>
+                </tr>
+                <tr>
+                    <td>Capital</td>
+                    <td id="capital"></td>
+                </tr>
+                <tr>
+                    <td>Continente</td>
+                    <td id="continente"></td>
+                </tr>
+                <tr>
+                    <td>Moneda</td>
+                    <td id="moneda"></td>
+                </tr>
+                <tr>
+                    <td>Habitantes</td>
+                    <td id="habitantes"></td>
+                </tr>
+                <tr>
+                    <td>Latitud</td>
+                    <td id="latitud"></td>
+                </tr>
+                <tr>
+                    <td>Longitud</td>
+                    <td id="longitud"></td>
+                </tr>
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+
+        <div id="map"></div>
+
+        <h2>Atracciones Turísticas</h2>
+        <ul id="atracciones"></ul>
+
+        <button onclick="window.history.back()" class="btn btn-secondary mt-3">Volver</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Obtener el nombre del país de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pais = urlParams.get('nombre');
+        const apiKey = 'f8499b630a9d46dbd6416a0d32844d9c'; // Reemplaza con tu clave de API
+
+        const urlPais = `https://restcountries.com/v3.1/name/${pais}`;
+
+        fetch(urlPais)
+            .then(response => response.json())
+            .then(data => {
+                const info = data[0];
+                document.getElementById('nombre-pais').innerText = info.name.common;
+                document.getElementById('bandera').src = info.flags.svg;
+
+                // Establecer la imagen de fondo
+                document.body.style.backgroundImage = `url(${info.flags.svg})`;
+                
+                document.getElementById('pais').innerText = `${info.name.common}`;
+                document.getElementById('continente').innerText = `${info.region}`;
+                document.getElementById('capital').innerText = `${info.capital}`;
+                document.getElementById('moneda').innerText = `${info.currencies[Object.keys(info.currencies)[0]].name}`;
+                document.getElementById('habitantes').innerText = `${info.population}`;
+                document.getElementById('latitud').innerText = `${info.latlng[0]}`;
+                document.getElementById('longitud').innerText = `${info.latlng[1]}`;
+
+                // Inicializar mapa **después** de establecer latitud y longitud
+                const lat = parseFloat(info.latlng[0]);
+                const lng = parseFloat(info.latlng[1]);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    initMap(lat, lng);
+                } else {
+                    console.error("Latitud o longitud inválida:", lat, lng);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos del país:', error);
+            });
+
+        let map; // Definición del mapa
+        let marker; // Definición del marcador
+
+        function initMap(lat, lng) {
+            //console.log("Iniciando mapa en:", lat, lng); // Mensaje de depuración
+            map = L.map('map').setView([lat, lng], 5);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            //console.log("Mapa inicializado correctamente."); // Confirmación de inicialización
+
+            marker = L.marker([lat, lng]).addTo(map)
+                .bindPopup(`<b>${document.getElementById('nombre-pais').innerText}</b>`)
+                .openPopup();
+        }
+    </script>
+</body>
+</html>
