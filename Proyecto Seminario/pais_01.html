@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="styles_01.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
 </head>
 <body class="country-background">
     <div class="container">
@@ -27,81 +21,28 @@
                 <tr><td>Continente</td><td id="continente"></td></tr>
                 <tr><td>Moneda</td><td id="moneda"></td></tr>
                 <tr><td>Habitantes</td><td id="habitantes"></td></tr>
-                <tr><td>Latitud</td><td id="latitud"></td></tr>
-                <tr><td>Longitud</td><td id="longitud"></td></tr>
+                <tr><td>Coordenadas</td><td id="coordenadas"></td></tr>
+                
             </tbody>
         </table>
 
         <div id="map"></div>
 
         <h2>Atracciones Turísticas</h2>
-        <ul id="atracciones"></ul>
+        <table class="table mt-4">
+            <tbody>
+                <tr>
+                    <td>lugar 1</td><td id="1"></td>
+                    <td>lugar 2</td><td id="2"></td>
+                    <td>lugar 3</td><td id="3"></td>
+                </tr>
+            </tbody>
+        </table>
 
         <button onclick="window.history.back()" class="btn btn-secondary mt-3">Volver</button>
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Declarar variables map y marker fuera de cualquier función para evitar errores de inicialización
-        let map;
-        let marker;
-
-        // Detectar si hay parámetros de latitud y longitud en la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const lat = parseFloat(urlParams.get('lat'));
-        const lng = parseFloat(urlParams.get('lng'));
-        const nombrePais = urlParams.get('nombre');
-
-        // Si hay coordenadas en la URL, mostrar solo el mapa
-        if (!isNaN(lat) && !isNaN(lng)) {
-            document.body.innerHTML = `<div id="map" style="height: 100vh; width: 100%;"></div>`;
-            document.title = `Mapa de ${nombrePais}`;
-            initMap(lat, lng, nombrePais);  // Aseguramos pasar el nombre del país
-        } else {
-            // Código para mostrar la información del país y preparar el enlace
-            const apiKey = 'f8499b630a9d46dbd6416a0d32844d9c';
-            const pais = urlParams.get('nombre');
-            const urlPais = `https://restcountries.com/v3.1/name/${pais}`;
-
-            fetch(urlPais)
-                .then(response => response.json())
-                .then(data => {
-                    const info = data[0];
-                    document.getElementById('nombre-pais').innerText = info.name.common;
-                    document.getElementById('bandera').src = info.flags.svg;
-                    document.body.style.backgroundImage = `url(${info.flags.svg})`;
-
-                    document.getElementById('pais').innerText = info.name.common;
-                    document.getElementById('continente').innerText = info.region;
-                    document.getElementById('capital').innerText = info.capital;
-                    document.getElementById('moneda').innerText = info.currencies[Object.keys(info.currencies)[0]].name;
-                    document.getElementById('habitantes').innerText = info.population;
-                    document.getElementById('latitud').innerText = info.latlng[0];
-                    document.getElementById('longitud').innerText = info.latlng[1];
-
-                    // Configurar el clic en el nombre del país
-                    document.getElementById('nombre-pais').onclick = function() {
-                        const lat = parseFloat(document.getElementById('latitud').innerText);
-                        const lng = parseFloat(document.getElementById('longitud').innerText);
-                        const nombrePais = document.getElementById('nombre-pais').innerText;
-                        window.open(`?lat=${lat}&lng=${lng}&nombre=${encodeURIComponent(nombrePais)}`, '_blank');
-                    };
-                })
-                .catch(error => console.error('Error al obtener los datos del país:', error));
-        }
-
-        function initMap(lat, lng, nombrePais) {
-            map = L.map('map').setView([lat, lng], 5);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            marker = L.marker([lat, lng]).addTo(map)
-                .bindPopup(`<b>${nombrePais}</b>`)
-                .openPopup();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

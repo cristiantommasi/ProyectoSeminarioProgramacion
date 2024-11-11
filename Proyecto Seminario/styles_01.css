@@ -21,11 +21,22 @@ table {
     width: 80%; /* Ajusta el ancho de la tabla */
 }
 
-th, td {
+th, td, tr{
     color: white; /* Cambia el color del texto a blanco */
     font-size: 0.9em; /* Cambia el color del texto a blanco */
     text-align: center; /* Centra el texto en la tabla */
 }
 #map {
     height: 400px; /* Asegúrate de que este valor sea consistente */
+    width: 100%;
+}
+
+h2{
+    color: white; /* Color del texto */
+            text-shadow: 
+                -1px -1px 0 black,  
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black; /* Sombra negra para simular el borde */
+            font-size: 40px
 }
