@@ -27,11 +27,11 @@ th, td, tr{
     text-align: center; /* Centra el texto en la tabla */
 }
 #map {
-    height: 400px; /* Asegúrate de que este valor sea consistente */
-    width: 100%;
+    height: 50vh; /* La altura será el 50% de la altura visible de la ventana */
+    width: 50vw; /* El ancho será el 100% del ancho visible de la ventana */
 }
 
-h2{
+h1, h2{
     color: white; /* Color del texto */
     text-shadow: 
         -1px -1px 0 black,  
@@ -40,4 +40,19 @@ h2{
         1px 1px 0 black; /* Sombra negra para simular el borde */
     font-size: 40px;
     text-align: center
+}
+.attraction {
+    text-align: center;
+    font-size: small;
+}
+.attraction img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+}
+.attraction a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: rgb(239, 239, 245);
 }

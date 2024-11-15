@@ -3,7 +3,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-image: url('foto_03.jpg');
+            background-image: url('Imagenes/foto_03.jpg');
             background-size:cover;
             display: flex;
             justify-content: center;
