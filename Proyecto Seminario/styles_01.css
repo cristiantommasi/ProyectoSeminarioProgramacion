@@ -73,3 +73,7 @@ tr.attraction{
     background-color: #ddd;
     padding: 0;
 }
+.btn{
+    font-size: .6em;
+    background-color: rgb(7, 117, 177);  
+}
