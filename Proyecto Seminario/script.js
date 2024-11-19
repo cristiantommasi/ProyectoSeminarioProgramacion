@@ -61,23 +61,7 @@ if (!isNaN(lat) && !isNaN(lng)) {
             };
         })
             .catch(error => console.error('Error al obtener los datos del país:', error));
-            
-            if (atracciones && Array.isArray(atracciones)) {
-                atracciones.forEach((atraccion, index) => {
-                    if (index < 3) {
-                        const elemento = document.getElementById(`name${index + 1}`);
-                        if (elemento) {
-                            elemento.innerHTML = `
-                                <h4>${atraccion.nombre}</h4>
-                                <img src="${atraccion.foto}" alt="${atraccion.nombre}">
-                                <a href="pais_01.html?lat=${atraccion.lat}&lng=${atraccion.lng}&nombre=${encodeURIComponent(atraccion.nombre)}" target="_blank">Visitar el mapa</a>
-                            `;
-                        }
-                    }
-                });
-            } else {
-                console.warn('Atracciones no definidas o no son un arreglo.');
-            }
+           
 }
 
            // Iniciar el mapa
@@ -133,7 +117,23 @@ if (!isNaN(lat) && !isNaN(lng)) {
     ],
     };
 
-//const atracciones = paises[nombrePais];
+    const atracciones = paises[nombrePais];
+    if (atracciones && Array.isArray(atracciones)) {
+        atracciones.forEach((atraccion, index) => {
+            if (index < 3) {
+                const elemento = document.getElementById(`name${index + 1}`);
+                if (elemento) {
+                    elemento.innerHTML = `
+                        <h4>${atraccion.nombre}</h4>
+                        <img src="${atraccion.foto}" alt="${atraccion.nombre}">
+                        <a href="pais_01.html?lat=${atraccion.lat}&lng=${atraccion.lng}&nombre=${encodeURIComponent(atraccion.nombre)}" target="_blank">Visitar el mapa</a>
+                    `;
+                }
+            }
+        });
+    } else {
+        console.warn('Atracciones no definidas o no son un arreglo.');
+    }
 /*if (atracciones && Array.isArray(atracciones)) {
     atracciones.forEach((atraccion, index) => {
         if (index < 3) {
