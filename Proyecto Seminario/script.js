@@ -13,6 +13,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const lat = parseFloat(urlParams.get('lat'));
 const lng = parseFloat(urlParams.get('lng'));
 const nombrePais = urlParams.get('nombre');
+const nombreAtraccion = urlParams.get('nombre');
 
 // Si hay coordenadas en la URL, mostrar solo el mapa
 if (!isNaN(lat) && !isNaN(lng)) {
@@ -60,7 +61,8 @@ if (!isNaN(lat) && !isNaN(lng)) {
             };
         })
             .catch(error => console.error('Error al obtener los datos del país:', error));
-            }
+           
+}
 
            // Iniciar el mapa
     function initMap(lat, lng, nombrePais) {
@@ -89,6 +91,7 @@ if (!isNaN(lat) && !isNaN(lng)) {
         setTimeout(() => {
             map.invalidateSize(); // Redimensiona el mapa para que se ajuste al nuevo tamaño del contenedor
         }, 100);  // Un pequeño retraso para asegurar que el contenedor haya sido procesado
+        
     }
 
     const paises = {
@@ -99,7 +102,7 @@ if (!isNaN(lat) && !isNaN(lng)) {
         ],
         "Argentina": [
             { nombre: "Cataratas del Iguazú", lat: -25.6953, lng: -54.4367, foto: "Imagenes/foto_Iguazu.jpg" },
-            { nombre: "Perito Moreno", lat: -50.4950, lng: -73.1393, foto: "Imagenes/foto_Glaciar.jpg" },
+            { nombre: "Glaciar Perito Moreno", lat: -50.4950, lng: -73.1393, foto: "Imagenes/foto_Glaciar.jpg" },
             { nombre: "Quebrada de Humahuaca", lat: -23.1998, lng: -65.3488, foto: "Imagenes/foto_Quebrada.jpg" }
         ],
         "Australia": [
@@ -114,40 +117,37 @@ if (!isNaN(lat) && !isNaN(lng)) {
     ],
     };
 
-const atracciones = paises[nombrePais];
-
-// Asignar datos al HTML
-atracciones.forEach((atraccion, index) => {
-    if (index < 3) {
-        const elemento = document.getElementById(`name${index + 1}`);
-        if (elemento) {
-            elemento.innerHTML = `
-                <h4>${atraccion.nombre}</h4>
-                <img src="${atraccion.foto}" alt="${atraccion.nombre}">
-                <a href="mapa.html?lat=${atraccion.lat}&lng=${atraccion.lng}" target="_blank">Visitar el mapa</a>
-            `;
-        }
-    }
-});
-// Mostrar atracciones en la lista
-/*atracciones.forEach(attraction => {
-    const li = document.createElement('li');
-    li.innerText = attraction.nombre;
-    li.onclick = () => {
-        map.setCenter({ lat: attraction.lat, lng: attraction.lng });
-        new google.maps.Marker({
-            position: { lat: attraction.lat, lng: attraction.lng },
-            map: map,
+    const atracciones = paises[nombrePais];
+    if (atracciones && Array.isArray(atracciones)) {
+        atracciones.forEach((atraccion, index) => {
+            if (index < 3) {
+                const elemento = document.getElementById(`name${index + 1}`);
+                if (elemento) {
+                    elemento.innerHTML = `
+                        <h4>${atraccion.nombre}</h4>
+                        <img src="${atraccion.foto}" alt="${atraccion.nombre}">
+                        <a href="pais_01.html?lat=${atraccion.lat}&lng=${atraccion.lng}&nombre=${encodeURIComponent(atraccion.nombre)}" target="_blank">Visitar el mapa</a>
+                    `;
+                }
+            }
         });
-    };
-    document.getElementById('atracciones').appendChild(li);
-});
-
-document.getElementById('btn-ver').onclick = function() {
-    const pais = document.getElementById('pais-select').value;
-    if (pais) {
-        window.location.href = `pais.html?nombre=${encodeURIComponent(pais)}`;
     } else {
-        alert('Por favor, selecciona un país.');
+        console.warn('Atracciones no definidas o no son un arreglo.');
     }
-}; */
+/*if (atracciones && Array.isArray(atracciones)) {
+    atracciones.forEach((atraccion, index) => {
+        if (index < 3) {
+            const elemento = document.getElementById(`name${index + 1}`);
+            if (elemento) {
+                elemento.innerHTML = `
+                    <h4>${atraccion.nombre}</h4>
+                    <img src="${atraccion.foto}" alt="${atraccion.nombre}">
+                    <a href="pais_01.html?lat=${atraccion.lat}&lng=${atraccion.lng}&nombre=${encodeURIComponent(atraccion.nombre)}" target="_blank">Visitar el mapa</a>
+                `;
+            }
+        }
+    });
+} else {
+    console.warn('Atracciones no definidas o no son un arreglo. Este código no se ejecutará en la página del mapa.');
+}
+*/
