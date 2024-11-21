@@ -92,6 +92,10 @@
                 <label for="dni">DNI</label>
                 <input type="text" id="dni" name="dni" required>
             </div>
+            <div class="form-group">
+                <label for="dni">Destino</label>
+                <input type="text" id="destino" name="destino" required>
+            </div>
             <button type="submit">Enviar</button>
         </form>
         <div id="response-message" class="message"></div>
@@ -105,16 +109,19 @@
             const apellido = document.getElementById('apellido').value;
             const pasaporte = document.getElementById('pasaporte').value;
             const dni = document.getElementById('dni').value;
+            const destino = document.getElementById('destino').value;
+            const apiKey = '9fbb8e5b3c7f4442a3d75781e5f900cd';
 
             const turistaData = {
                 nombre: nombre,
                 apellido: apellido,
                 pasaporte: pasaporte,
-                dni: dni
+                dni: dni,
+                destino: destino
             };
 
             // Enviar los datos al servidor
-            fetch('https://api.mockapi.com/turistas', {
+            fetch('https://673e728a0118dbfe860b5075.mockapi.io/agregar/travellers', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
