@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecciona un País</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container w-50">
+        <h1>Elige un destino</h1>
+        <select id="pais-select" class="form-control">
+            <option value="">-- Elige un país --</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Australia">Australia</option>
+            <option value="Mexico">Mexico</option>
+            <!-- Agrega más países según sea necesario -->
+        </select>
+        <button id="btn-ver" class="btn btn-primary mt-3">Conocer</button>
+    </div>
+
+    <script>
+        document.getElementById('btn-ver').onclick = function() {
+            const pais = document.getElementById('pais-select').value;
+            if (pais) {
+                // Redirigir a la página de información del país
+                window.location.href = `pais_01.html?nombre=${encodeURIComponent(pais)}`;
+            } else {
+                alert('Por favor, selecciona un país.');
+            }
+        };
+    </script>
+</body>
+</html>

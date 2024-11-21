@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del País</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles_01.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+</head>
+<body class="country-background">
+    <div class="container">
+        <h1 id="nombre-pais"></h1>
+        <img id="bandera" src="" alt="Bandera" class="img-fluid" style="display: none;">
+
+        <table class="table mt-4">
+            <tbody>
+                <tr>
+                    <td class="left">Pais</td>
+                    <td class="right" id="pais"></td>
+                    <td class="divider"></td>
+                    <td class="left">Capital</td>
+                    <td class="right" id="capital"></td>
+                </tr>
+                <tr>
+                    <td class="left">Continente</td>
+                    <td class="right" id="continente"></td>
+                    <td class="divider"></td>
+                    <td class="left">Moneda</td>
+                    <td class="right" id="moneda"></td>
+                </tr>
+                <tr>
+                    <td class="left">Habitantes</td>
+                    <td class="right" id="habitantes"></td>
+                    <td class="divider"></td>
+                    <td class="left">Coordenadas</td>
+                    <td class="right" id="coordenadas"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button id="ir-al-mapa" class="btn btn-secondary mt-3">Ir al mapa</button>
+            <button class="btn btn-secondary mt-3" onclick="location.href='form.html';">Quiero Ir</button>
+
+
+        </div>
+      
+        <div id="map"></div>
+
+        <h2>Atracciones Turísticas</h2>
+        <table class="table mt-4">
+            <tbody>
+                <tr>
+                    <td class="attraction" id="name1"></td>
+                    <td class="attraction" id="name2"></td>
+                    <td class="attraction" id="name3"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button onclick="window.history.back()" class="btn btn-secondary mt-3">Volver</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+body {
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 100vh; /* Altura del viewport para evitar scroll vertical */
+    margin: 0; /* Elimina los márgenes del body */
+    color: white; /* Cambia el color del texto para mejor visibilidad */
+}
+
+.container {
+    height: 100%; /* Asegura que el contenedor use toda la altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+}
+
+table {
+    background: rgba(0, 0, 0, 0.7); /* Fondo semitransparente para la tabla */
+    border-radius: 5px;
+    width: 100%;
+    table-layout: fixed; /* Hace que las columnas tengan el mismo tamaño */
+    border-collapse: collapse; /* Evita espacios entre las celdas */
+}
+
+th, td, tr{
+    color: white; /* Cambia el color del texto a blanco */
+    font-size: .9em; /* Cambia el color del texto a blanco */
+    text-align: center; /* Centra el texto en la tabla */
+}
+#map {
+    height: 50vh; /* La altura será el 50% de la altura visible de la ventana */
+    width: 50vw; /* El ancho será el 100% del ancho visible de la ventana */
+}
+
+h1, h2{
+    color: white; /* Color del texto */
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Sombra negra para simular el borde */
+    font-size: 40px;
+    text-align: center
+}
+tr.attraction{
+    font-size: 1.1em;
+}
+.attraction {
+    text-align: center;
+    font-size: 0.7em; 
+}
+.attraction img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+}
+.attraction a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: rgb(239, 239, 245);
+}
+.left {
+    text-align: left; /* Alinea el texto de la primera columna a la izquierda */
+}
+
+.right {
+    text-align: right; /* Alinea el texto de la segunda columna a la derecha */
+}
+.divider {
+    width: 2px;
+    background-color: transparent;
+    padding: 0;
+}
+.btn{
+    font-size: .6em;
+    background-color: rgb(7, 117, 177);  
+}
